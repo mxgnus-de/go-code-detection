@@ -3,7 +3,7 @@ package detection_test
 import (
 	"testing"
 
-	detection "github.com/mxgnus-de/go-code-detection"
+	"github.com/mxgnus-de/go-code-detection/detection"
 	"github.com/mxgnus-de/go-code-detection/language"
 )
 

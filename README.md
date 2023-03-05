@@ -30,7 +30,7 @@ package main
 
 import (
    "fmt"
-   detection "github.com/mxgnus-de/go-code-detection"
+   "github.com/mxgnus-de/go-code-detection/detection"
 )
 
 func main() {
@@ -89,7 +89,7 @@ package main
 
 import (
    "fmt"
-   detection "github.com/mxgnus-de/go-code-detection"
+   "github.com/mxgnus-de/go-code-detection/detection"
 )
 
 func main() {
@@ -106,7 +106,7 @@ package main
 
 import (
    "fmt"
-   detection "github.com/mxgnus-de/go-code-detection"
+   "github.com/mxgnus-de/go-code-detection/detection"
 )
 
 func main() {
