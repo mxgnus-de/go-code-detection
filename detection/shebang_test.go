@@ -10,6 +10,17 @@ import (
 func TestShebangLanguageDetection(t *testing.T) {
 	t.Log("Testing Shebang Language Detection")
 
+	t.Run("Empty", func(t *testing.T) {
+		t.Log("Testing Empty Shebang Language Detection")
+		code := ``
+		result := detection.DetectLanguage(code, detection.NewDetectionOptions())
+
+		if result.Language != language.LANGUAGE_UNKNOWN {
+			t.Errorf("Expected language to be %s, but got %s", language.LANGUAGE_UNKNOWN, result.Language)
+			t.Errorf("Result: %v", result)
+		}
+	})
+
 	t.Run("JavaScript", func(t *testing.T) {
 		t.Log("Testing JavaScript Shebang Language Detection")
 		code := `#!/usr/bin/env node`

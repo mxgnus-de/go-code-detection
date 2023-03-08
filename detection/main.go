@@ -36,7 +36,13 @@ func (o *detectionOptions) WithLowerCaseOutput() *detectionOptions {
 func DetectLanguage(code string, options *detectionOptions) DetectionResult {
 	lines, lineCount := getLines(code)
 
-	if options.heuristic && lineCount > 500 {
+	if lineCount == 0 {
+		return DetectionResult{
+			Language:    getOutputLanguage(language.LANGUAGE_UNKNOWN, options),
+			Statistics:  map[language.Language]float64{},
+			LinesOfCode: 0,
+		}
+	} else if options.heuristic && lineCount > 500 {
 		newLines := []string{}
 
 		for i, line := range lines {
