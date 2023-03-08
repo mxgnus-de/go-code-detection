@@ -1,6 +1,9 @@
 package language
 
-import "regexp"
+import (
+	"regexp"
+	"strings"
+)
 
 type Type string
 type Language string
@@ -93,4 +96,26 @@ var LANGUAGES = map[Language][]LanguagePattern{
 	LANGUAGE_RUST:       RUST_LANGUAGE_PATTERN,
 	LANGUAGE_SQL:        SQL_LANGUAGE_PATTERN,
 	LANGUAGE_YAML:       YAML_LANGUAGE_PATTERN,
+}
+
+var SPECIAL_LOWERCASE_LANGUAGES = map[Language]Language{
+	LANGUAGE_CPP: "cpp",
+	LANGUAGE_CS:  "csharp",
+}
+
+func ConvertLowerCaseLangIntoLang(lang Language) Language {
+	var found Language
+
+	for k, v := range SPECIAL_LOWERCASE_LANGUAGES {
+		if v == lang {
+			found = k
+			break
+		}
+	}
+
+	if found != "" {
+		return found
+	}
+
+	return Language(strings.ToUpper(string(lang[:1])) + string(lang[1:]))
 }

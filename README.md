@@ -116,12 +116,37 @@ func main() {
 }
 ```
 
+If you want to output the equivalent language in lower case format, use the `LowerCaseOutput` option:
+
+```go
+package main
+
+import (
+   "fmt"
+   "github.com/mxgnus-de/go-code-detection/detection"
+   "github.com/mxgnus-de/go-code-detection/language"
+)
+
+func main() {
+   code := `console.log('Hello world!')`
+	result := detection.DetectLanguage(code, detection.NewDetectionOptions().WithLowerCaseOutput())
+   // => javascript
+
+   // if you want to convert the lower case output language back into the original output language
+   convertedLanguage := language.ConvertLowerCaseLangIntoLang(result.Language)
+   // => Javascript
+}
+```
+
+Note: Outputted language like C# or C++ will be converted to csharp or cpp
+
 ## Available Options
 
-| Option    | Type   | Default | Description                                                                                      |
-| --------- | ------ | ------- | ------------------------------------------------------------------------------------------------ |
-| Heuristic | `bool` | `true`  | Checks for codes on the top of the given input. Only checks when the lines of code is above 500. |
-| NoUnknown | `bool` | `false` | If `true`, will not output `Unknown` on detected and statistics result                           |
+| Option          | Type   | Default | Description                                                                                      |
+| --------------- | ------ | ------- | ------------------------------------------------------------------------------------------------ |
+| Heuristic       | `bool` | `true`  | Checks for codes on the top of the given input. Only checks when the lines of code is above 500. |
+| NoUnknown       | `bool` | `false` | If `true`, will not output `Unknown` on detected and statistics result                           |
+| LowerCaseOutput | `bool` | `false` | If `true`, will output the lower case language name instead                                      |
 
 ## Credits
 

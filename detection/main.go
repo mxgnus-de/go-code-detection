@@ -12,8 +12,9 @@ import (
 
 func NewDetectionOptions() *detectionOptions {
 	return &detectionOptions{
-		noUnknown: false,
-		heuristic: true,
+		noUnknown:       false,
+		heuristic:       true,
+		lowerCaseOutput: false,
 	}
 }
 
@@ -24,6 +25,11 @@ func (o *detectionOptions) WithNoUnknown() *detectionOptions {
 
 func (o *detectionOptions) WithoutHeuristic() *detectionOptions {
 	o.heuristic = false
+	return o
+}
+
+func (o *detectionOptions) WithLowerCaseOutput() *detectionOptions {
+	o.lowerCaseOutput = true
 	return o
 }
 
@@ -58,7 +64,7 @@ func DetectLanguage(code string, options *detectionOptions) DetectionResult {
 		shebangLanguage := hasLanguageSpecificShebang(lines)
 
 		if shebangLanguage != "" {
-			result.Language = shebangLanguage
+			result.Language = getOutputLanguage(shebangLanguage, options)
 			return result
 		}
 	}
@@ -124,7 +130,7 @@ func DetectLanguage(code string, options *detectionOptions) DetectionResult {
 	bestLanguagePointResult := getBestLanguagePointsResult(languagePoints)
 	languagePointStatisticMap := getLanguagePointStatisticMap(languagePoints)
 
-	result.Language = bestLanguagePointResult.Language
+	result.Language = getOutputLanguage(bestLanguagePointResult.Language, options)
 	result.Statistics = languagePointStatisticMap
 
 	return result
@@ -161,4 +167,16 @@ func getLanguagePointStatisticMap(languagePoints []LanguagePoints) map[language.
 	}
 
 	return languagePointStatisticMap
+}
+
+func getOutputLanguage(lang language.Language, options *detectionOptions) language.Language {
+	if options.lowerCaseOutput {
+		if language.SPECIAL_LOWERCASE_LANGUAGES[lang] != "" {
+			return language.SPECIAL_LOWERCASE_LANGUAGES[lang]
+		}
+
+		return language.Language(strings.ToLower(string(lang)))
+	}
+
+	return lang
 }

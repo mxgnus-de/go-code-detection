@@ -8,8 +8,9 @@ type LanguagePoints struct {
 }
 
 type detectionOptions struct {
-	noUnknown bool
-	heuristic bool
+	noUnknown       bool
+	heuristic       bool
+	lowerCaseOutput bool
 }
 
 type DetectionResult struct {
