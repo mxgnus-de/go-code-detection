@@ -13,7 +13,7 @@ import (
 func NewDetectionOptions() *detectionOptions {
 	return &detectionOptions{
 		noUnknown: false,
-		heuristic: false,
+		heuristic: true,
 	}
 }
 
@@ -23,7 +23,7 @@ func (o *detectionOptions) WithNoUnknown() *detectionOptions {
 }
 
 func (o *detectionOptions) WithoutHeuristic() *detectionOptions {
-	o.heuristic = true
+	o.heuristic = false
 	return o
 }
 
